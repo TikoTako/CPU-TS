@@ -56,7 +56,7 @@ begin
     begin
       vPGuid := nil;
       if PrintR('Get', PowerGetActiveScheme(0, vPGuid)) = 0 then
-        try
+        begin
           PrintR('Read AC min', PowerReadACValueIndex(0, vPGuid, @GUID_PROCESSOR_SETTINGS_SUBGROUP, @GUID_PROCESSOR_THROTTLE_MINIMUM, vValueR));
           writeln('Current value > ', vValueR);
           PrintR('Read AC max', PowerReadACValueIndex(0, vPGuid, @GUID_PROCESSOR_SETTINGS_SUBGROUP, @GUID_PROCESSOR_THROTTLE_MAXIMUM, vValueR));
@@ -70,10 +70,10 @@ begin
           PrintR('Write AC max', PowerWriteACValueIndex(0, vPGuid, @GUID_PROCESSOR_SETTINGS_SUBGROUP, @GUID_PROCESSOR_THROTTLE_MAXIMUM, vValueW));
           PrintR('Write DC min', PowerWriteDCValueIndex(0, vPGuid, @GUID_PROCESSOR_SETTINGS_SUBGROUP, @GUID_PROCESSOR_THROTTLE_MINIMUM, vValueW));
           PrintR('Write DC max', PowerWriteDCValueIndex(0, vPGuid, @GUID_PROCESSOR_SETTINGS_SUBGROUP, @GUID_PROCESSOR_THROTTLE_MAXIMUM, vValueW));
+
           PrintR('Set', PowerSetActiveScheme(0, vPGuid));
-        finally
-          LocalFree(THandle(vPGuid));
         end;
+
     end;
   except
     writeln('some error');
