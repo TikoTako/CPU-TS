@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{F2FA3D2C-03A5-49BC-A546-FC2A099CDAEC}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="dllversion.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="exeversion.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="dllversion">
+        <MSBuild Projects="dllversion.dproj"/>
+    </Target>
+    <Target Name="dllversion:Clean">
+        <MSBuild Projects="dllversion.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dllversion:Make">
+        <MSBuild Projects="dllversion.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="exeversion">
+        <MSBuild Projects="exeversion.dproj"/>
+    </Target>
+    <Target Name="exeversion:Clean">
+        <MSBuild Projects="exeversion.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="exeversion:Make">
+        <MSBuild Projects="exeversion.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="dllversion;exeversion"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="dllversion:Clean;exeversion:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="dllversion:Make;exeversion:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
